@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://bringel:desafiotecnico@db/cme_db
+
+  db:
+    ports:
+      - "5432:5432"
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_DB: cme_db
+      POSTGRES_USER: bringel
+      POSTGRES_PASSWORD: desafiotecnico
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
